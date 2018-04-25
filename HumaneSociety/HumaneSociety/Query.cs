@@ -201,7 +201,15 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             database.Animals.InsertOnSubmit(animal);
-            database.SubmitChanges();
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Query.AddAnimal: " + e);
+            }
+            
         }
     }
 }
