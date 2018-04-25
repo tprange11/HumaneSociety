@@ -61,9 +61,10 @@ namespace HumaneSociety
             return employeeData;
         }
 
-        public static int AddUsernameAndPassword(Employee employee, string password)
+        public static void AddUsernameAndPassword(Employee employee)
         {
-            return 1;
+            //Add logic to insert username and pass to database.
+            
         }
 
         public static bool CheckEmployeeUserNameExist(string username)
@@ -101,10 +102,10 @@ namespace HumaneSociety
             return adoptions;
         }
 
-        internal static IQueryable<string> GetAnimalByID(int id)
+        internal static Animal GetAnimalByID(int id)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            var animal = from data in database.Animals where data.ID == id select data.name;
+            var animal = (from data in database.Animals where data.ID == id select data).First();
             return animal;
         }
 
@@ -132,7 +133,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static void updateClient(Client client)
+        internal static void UpdateClient(Client client)
         {
             throw new NotImplementedException();
         }
@@ -158,6 +159,21 @@ namespace HumaneSociety
         }
 
         internal static void UpdateLastName(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void AddAnimal(Animal animal)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static int? GetLocation()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static int? GetDiet()
         {
             throw new NotImplementedException();
         }
