@@ -11,18 +11,6 @@ namespace HumaneSociety
         // Attempting to order methods/delegates in order of CRUD 
         // The more simple the method the more likely it can be a delegate
 
-        public delegate string AddAnimal();
-        public delegate string UpdateAdoption();
-        public delegate string UpdateShot();
-        public delegate string EnterUpdate();
-        public delegate string RemoveAnimal();
-
-        public delegate string GetPendingAdoptions();
-        public delegate string GetShots();
-        public delegate string GetBreed();
-        public delegate string GetDiet();
-        public delegate string GetLocation();
-
         public static void CreateSql()
         {
 
@@ -47,16 +35,11 @@ namespace HumaneSociety
         }
 
         // Simple queries done with this method
-        public static void ConnectionToDatabase()
+        public static HumaneSocietyDataContext ConnectionToDatabase()
         {
-            using (HumaneSocietyDataContext db = new HumaneSocietyDataContext())
+            using (HumaneSocietyDataContext context = new HumaneSocietyDataContext())
             {
-                var animals = db.Animals;
-                var animalsHeavierThan = animals.Where(w => w.weight >= 20);
-                foreach (var animal in animalsHeavierThan)
-                {
-                    Console.WriteLine(animal.name);
-                }
+                return context;
             }
         }
         // Employee stuff kept seperate from animal stuff
@@ -88,6 +71,12 @@ namespace HumaneSociety
         internal static void RunEmployeeQueries(Employee employee, string v)
         {
             throw new NotImplementedException();
+        }
+
+        internal static IQueryable<ClientAnimalJunction> GetPendingAdoptions()
+        {
+            var animals = from data in ConnectionToDatabase().ClientAnimalJunctions where data.approvalStatus == "pending" select data;
+            return animals;
         }
 
         internal static object GetUserAdoptionStatus(Client client)
