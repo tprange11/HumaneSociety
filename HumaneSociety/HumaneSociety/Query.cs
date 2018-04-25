@@ -41,9 +41,15 @@ namespace HumaneSociety
             return 1;
         }
 
-        public static int EmployeeLogin(string userName, string password)
+        public static Employee EmployeeLogin(string userName, string password)
         {
-            return 1;
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var employeeData = (from employee in database.Employees
+                            where employee.userName == userName
+                            where employee.pass == password
+                            select employee).First();
+            
+            return employeeData;
         }
 
         public static Employee RetrieveEmployeeUser(string email, int employeeNumber)
@@ -96,10 +102,10 @@ namespace HumaneSociety
             return adoptions;
         }
 
-        internal static IQueryable<string> GetAnimalByID(int id)
+        internal static Animal GetAnimalByID(int id)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            var animal = from data in database.Animals where data.ID == id select data.name;
+            var animal = (from data in database.Animals where data.ID == id select data).First();
             return animal;
         }
 
@@ -127,7 +133,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static void updateClient(Client client)
+        internal static void UpdateClient(Client client)
         {
             throw new NotImplementedException();
         }
@@ -174,6 +180,26 @@ namespace HumaneSociety
         internal static int? UpdateAdoption(bool isAdopted, ClientAnimalJunction animal)
         {
             throw new NotImplementedException();
+        }
+        internal static int? EnterUpdate(Animal animal, Dictionary<int, string> updates)
+        {
+            return 1;
+        }
+        internal static int? RemoveAnimal(Animal animal)
+        {
+            return 1;
+        }
+        internal static int? GetDiet()
+        {
+            return 1;
+        }
+        internal static int? GetLocation()
+        {
+            return 1;
+        }
+        internal static int? AddAnimal(Animal animal)
+        {
+            return 1;
         }
     }
 }
