@@ -177,5 +177,17 @@ namespace HumaneSociety
         {
             throw new NotImplementedException();
         }
+        internal static int? UpdateShot(string shot, Animal animal)
+        {
+            throw new NotImplementedException();
+        }
+        internal static IQueryable<AnimalShotJunction> GetShots(Animal animal)
+        {
+            throw new NotImplementedException();
+        }
+        internal static int? UpdateAdoption(bool isAdopted, ClientAnimalJunction animal)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
