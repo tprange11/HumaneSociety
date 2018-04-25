@@ -34,14 +34,7 @@ namespace HumaneSociety
 
         }
 
-        // Simple queries done with this method
-        public static HumaneSocietyDataContext ConnectionToDatabase()
-        {
-            using (HumaneSocietyDataContext context = new HumaneSocietyDataContext())
-            {
-                return context;
-            }
-        }
+
         // Employee stuff kept seperate from animal stuff
         public static int EmployeeLogin()
         {
@@ -75,7 +68,8 @@ namespace HumaneSociety
 
         internal static IQueryable<ClientAnimalJunction> GetPendingAdoptions()
         {
-            var animals = from data in ConnectionToDatabase().ClientAnimalJunctions where data.approvalStatus == "pending" select data;
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var animals = from data in database.ClientAnimalJunctions where data.approvalStatus == "pending" select data;
             return animals;
         }
 
