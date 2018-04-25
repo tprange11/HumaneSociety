@@ -41,14 +41,9 @@ namespace HumaneSociety
             return 1;
         }
 
-        public static Employee EmployeeLogin(string userName, string password)
+        public static int EmployeeLogin(string userName, string password)
         {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            var employeeData = (from employee in database.Employees
-                                where employee.userName == userName
-                                where employee.pass == password
-                                select employee).First();
-            return employeeData;
+            return 1;
         }
 
         public static Employee RetrieveEmployeeUser(string email, int employeeNumber)
@@ -61,10 +56,9 @@ namespace HumaneSociety
             return employeeData;
         }
 
-        public static void AddUsernameAndPassword(Employee employee)
+        public static int AddUsernameAndPassword(Employee employee)
         {
-            //Add logic to insert username and pass to database.
-            
+            return 1;
         }
 
         public static bool CheckEmployeeUserNameExist(string username)
@@ -102,10 +96,10 @@ namespace HumaneSociety
             return adoptions;
         }
 
-        internal static Animal GetAnimalByID(int id)
+        internal static IQueryable<string> GetAnimalByID(int id)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            var animal = (from data in database.Animals where data.ID == id select data).First();
+            var animal = from data in database.Animals where data.ID == id select data.name;
             return animal;
         }
 
@@ -133,7 +127,7 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static void UpdateClient(Client client)
+        internal static void updateClient(Client client)
         {
             throw new NotImplementedException();
         }
@@ -163,19 +157,11 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static void AddAnimal(Animal animal)
+        internal static IQueryable<Breed> GetBreed(string matchBreed)
         {
-            throw new NotImplementedException();
-        }
-
-        internal static int? GetLocation()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static int? GetDiet()
-        {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var animalBreed = from data in database.Breeds where data.breed1 == matchBreed select data;
+            return animalBreed;
         }
         internal static int? UpdateShot(string shot, Animal animal)
         {
