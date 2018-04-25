@@ -29,6 +29,12 @@ namespace HumaneSociety
         {
 
         }
+
+        internal static Client GetClient(string userName, string password)
+        {
+            throw new NotImplementedException();
+        }
+
         public static void ReplaceSql()
         {
 
@@ -71,6 +77,71 @@ namespace HumaneSociety
         public static int CheckEmployeeUserNameExist(string username)
         {
             return 1;
+        }
+
+        internal static void RunEmployeeQueries(Employee employee, string v)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static object GetUserAdoptionStatus(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static object GetAnimalByID(int iD)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void Adopt(object animal, Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static object RetrieveClients()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static object GetStates()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void updateClient(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void UpdateUsername(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void UpdateEmail(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void UpdateAddress(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void UpdateFirstName(Client client)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void UpdateLastName(Client client)
+        {
+            throw new NotImplementedException();
         }
     }
 }
