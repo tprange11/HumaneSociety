@@ -197,9 +197,11 @@ namespace HumaneSociety
         {
             return 1;
         }
-        internal static int? AddAnimal(Animal animal)
+        internal static void AddAnimal(Animal animal)
         {
-            return 1;
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.Animals.InsertOnSubmit(animal);
+            database.SubmitChanges();
         }
     }
 }
