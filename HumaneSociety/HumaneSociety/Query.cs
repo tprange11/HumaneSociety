@@ -163,11 +163,11 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static IQueryable<Breed> GetBreed()
+        internal static int? GetBreed()
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             var animalBreed = (from data in database.Breeds select data.breed1).First();
-            return animalBreed;
+            return 1;
         }
         internal static int? UpdateShot(string shot, Animal animal)
         {
