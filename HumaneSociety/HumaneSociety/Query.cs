@@ -128,10 +128,17 @@ namespace HumaneSociety
             return states;
         }
 
-        internal static void AddNewClient(Client client)
+        internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, int streetAddress, int zipCode, string state)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            
+            Client client = new Client();
+            client.firstName = firstName;
+            client.lastName = lastName;
+            client.userName = username;
+            client.pass = password;
+            client.email = email;
+            client.userAddress = streetAddress;
+    
             database.Clients.InsertOnSubmit(client);
             try
             {
