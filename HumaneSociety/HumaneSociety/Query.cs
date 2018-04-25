@@ -46,9 +46,14 @@ namespace HumaneSociety
             return 1;
         }
 
-        public static int RetrieveEmployeeUser(string email, int employeeNumber)
+        public static IQueryable<Employee> RetrieveEmployeeUser(string email, int employeeNumber)
         {
-            return 1;
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var employeeData = (from employee in database.Employees
+                                where employee.email == email
+                                where employee.employeeNumber == employeeNumber
+                                select employee);
+            return employeeData;
         }
 
         public static int AddUsernameAndPassword(Employee employee, string password)
