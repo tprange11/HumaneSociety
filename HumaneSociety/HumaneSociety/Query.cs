@@ -73,11 +73,11 @@ namespace HumaneSociety
             return animals;
         }
 
-        internal static object GetUserAdoptionStatus(Client client)
+        internal static IQueryable<ClientAnimalJunction> GetUserAdoptionStatus(Client client)
         {
-            // TODO: return proper list here
-            Client clientOne = new Client();
-            return clientOne;
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var adoptions = from data in database.ClientAnimalJunctions where data.client == client.ID select data;
+            return adoptions;
         }
 
         internal static object GetAnimalByID(int iD)
