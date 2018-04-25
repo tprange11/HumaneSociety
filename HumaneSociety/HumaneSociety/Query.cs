@@ -8,22 +8,20 @@ namespace HumaneSociety
 {
     public static class Query
     {
-        //HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-
         // Attempting to order methods/delegates in order of CRUD 
         // The more simple the method the more likely it can be a delegate
 
-        public delegate string AddAnimal(string derp);
-        public delegate string UpdateAdoption(string derp);
-        public delegate string UpdateShot(string derp);
-        public delegate string EnterUpdate(string derp);
-        public delegate string RemoveAnimal(string derp);
+        public delegate string AddAnimal();
+        public delegate string UpdateAdoption();
+        public delegate string UpdateShot();
+        public delegate string EnterUpdate();
+        public delegate string RemoveAnimal();
 
-        public delegate string GetPendingAdoptions(string derp);
-        public delegate string GetShots(string derp);
-        public delegate string GetBreed(string derp);
-        public delegate string GetDiet(string derp);
-        public delegate string GetLocation(string derp);
+        public delegate string GetPendingAdoptions();
+        public delegate string GetShots();
+        public delegate string GetBreed();
+        public delegate string GetDiet();
+        public delegate string GetLocation();
 
         public static void CreateSql()
         {
@@ -49,9 +47,17 @@ namespace HumaneSociety
         }
 
         // Simple queries done with this method
-        public static void QuerySql()
+        public static void ConnectionToDatabase()
         {
-            //var getquery = new HumaneSociety.designer.cs;
+            using (HumaneSocietyDataContext db = new HumaneSocietyDataContext())
+            {
+                var animals = db.Animals;
+                var animalsHeavierThan = animals.Where(w => w.weight >= 20);
+                foreach (var animal in animalsHeavierThan)
+                {
+                    Console.WriteLine(animal.name);
+                }
+            }
         }
         // Employee stuff kept seperate from animal stuff
         public static int EmployeeLogin()
@@ -86,7 +92,9 @@ namespace HumaneSociety
 
         internal static object GetUserAdoptionStatus(Client client)
         {
-            throw new NotImplementedException();
+            // TODO: return proper list here
+            Client clientOne = new Client();
+            return clientOne;
         }
 
         internal static object GetAnimalByID(int iD)
