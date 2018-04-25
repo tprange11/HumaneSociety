@@ -41,18 +41,23 @@ namespace HumaneSociety
             return 1;
         }
 
-        public static int EmployeeLogin(string userName, string password)
+        public static Employee EmployeeLogin(string userName, string password)
         {
-            return 1;
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var employeeData = (from employee in database.Employees
+                                where employee.userName == userName
+                                where employee.pass == password
+                                select employee).First();
+            return employeeData;
         }
 
-        public static IQueryable<Employee> RetrieveEmployeeUser(string email, int employeeNumber)
+        public static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             var employeeData = (from employee in database.Employees
                                 where employee.email == email
                                 where employee.employeeNumber == employeeNumber
-                                select employee);
+                                select employee).First();
             return employeeData;
         }
 
