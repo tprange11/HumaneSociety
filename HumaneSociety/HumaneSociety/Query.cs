@@ -96,10 +96,10 @@ namespace HumaneSociety
             return adoptions;
         }
 
-        internal static IQueryable<string> GetAnimalByID(int id)
+        internal static Animal GetAnimalByID(int id)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            var animal = from data in database.Animals where data.ID == id select data.name;
+            var animal = (from data in database.Animals where data.ID == id select data).First();
             return animal;
         }
 
