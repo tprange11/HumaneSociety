@@ -56,9 +56,20 @@ namespace HumaneSociety
             return 1;
         }
 
-        public static int CheckEmployeeUserNameExist(string username)
+        public static bool CheckEmployeeUserNameExist(string username)
         {
-            return 1;
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var employeeData = (from employee in database.Employees
+                         where employee.userName == username
+                         select employee).First();
+            if (employeeData != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         internal static void RunEmployeeQueries(Employee employee, string v)
