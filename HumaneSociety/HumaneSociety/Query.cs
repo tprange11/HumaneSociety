@@ -90,14 +90,18 @@ namespace HumaneSociety
             throw new NotImplementedException();
         }
 
-        internal static object RetrieveClients()
+        internal static IQueryable<Client> RetrieveClients()
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var clients = from data in database.Clients select data;
+            return clients;
         }
 
-        internal static object GetStates()
+        internal static IQueryable<USState> GetStates()
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var states = from data in database.USStates select data;
+            return states;
         }
 
         internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
