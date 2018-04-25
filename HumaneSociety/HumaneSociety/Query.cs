@@ -51,7 +51,7 @@ namespace HumaneSociety
             return 1;
         }
 
-        public static int AddUsernameAndPassword(Employee employee, string password)
+        public static int AddUsernameAndPassword(Employee employee)
         {
             return 1;
         }
