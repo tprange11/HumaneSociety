@@ -80,9 +80,11 @@ namespace HumaneSociety
             return adoptions;
         }
 
-        internal static object GetAnimalByID(int iD)
+        internal static IQueryable<string> GetAnimalByID(int id)
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var animal = from data in database.Animals where data.ID == id select data.name;
+            return animal;
         }
 
         internal static void Adopt(object animal, Client client)

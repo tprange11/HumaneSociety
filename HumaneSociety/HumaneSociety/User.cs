@@ -11,8 +11,6 @@ namespace HumaneSociety
         protected string name;
         protected string userName;
 
-        HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-
         public virtual void LogIn()
         {
 
