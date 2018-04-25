@@ -128,9 +128,19 @@ namespace HumaneSociety
             return states;
         }
 
-        internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
+        internal static void AddNewClient(Client client)
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            
+            database.Clients.InsertOnSubmit(client);
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Query.AddNewClient: " + e);
+            }
         }
 
         internal static void UpdateClient(Client client)
