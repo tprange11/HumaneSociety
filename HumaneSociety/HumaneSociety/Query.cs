@@ -8,6 +8,8 @@ namespace HumaneSociety
 {
     public static class Query
     {
+        //HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+
         // Attempting to order methods/delegates in order of CRUD 
         // The more simple the method the more likely it can be a delegate
 
@@ -43,7 +45,7 @@ namespace HumaneSociety
         // Simple queries done with this method
         public static void QuerySql()
         {
-
+            //var getquery = new HumaneSociety.designer.cs;
         }
         // Employee stuff kept seperate from animal stuff
         public static int EmployeeLogin()
