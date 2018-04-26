@@ -243,7 +243,6 @@ namespace HumaneSociety
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             string diet = UserInterface.GetStringData("diet", "the animal's");
             int amount = UserInterface.GetIntegerData("amount", "the animal's");
-
             try
             {
                 var query = (from dietPlan in database.DietPlans
@@ -263,16 +262,39 @@ namespace HumaneSociety
             }
         }
 
-        internal static int? GetLocation()
+        internal static string GetLocation(string passedInRoom, string passInBuilding)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            string location = UserInterface.GetStringData("location", "the animal's");
+            try
+            {
+                var animalRoom = (from data in database.Rooms where data.name == passedInRoom select data.name).First();
+                return animalRoom;
+            }
+            catch
+            {
+                Room newRoom = new Room()
+                {
+                    name = passedInRoom,
+                    building = passInBuilding
+                };
+                CreateRoomHelper(newRoom);
+                var animalRoom = (from data in database.Rooms where data.name == passedInRoom select data.name).First();
+                return animalRoom;
+            }
+        }
 
-            var query = (from place in database.Rooms
-                         where place.name == location
-                         select place.ID).First();
-
-            return query;
+        internal static void CreateRoomHelper(Room roomToAdd)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.Rooms.InsertOnSubmit(roomToAdd);
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Query.CreateRoomHelper: " + e);
+            }
         }
 
         internal static IQueryable<ClientAnimalJunction> GetPendingAdoptions()
