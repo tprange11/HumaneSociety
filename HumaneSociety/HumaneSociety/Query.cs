@@ -128,7 +128,7 @@ namespace HumaneSociety
             return states;
         }
 
-        internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, int streetAddress, int zipCode, string state)
+        internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, string state)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             Client client = new Client();
@@ -138,7 +138,7 @@ namespace HumaneSociety
             client.pass = password;
             client.email = email;
             int address = GetClientAddress(streetAddress, zipCode, state);
-            client.userAddress = streetAddress;
+            client.userAddress = address;
     
             database.Clients.InsertOnSubmit(client);
             try
