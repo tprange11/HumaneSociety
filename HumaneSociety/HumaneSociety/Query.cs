@@ -118,10 +118,44 @@ namespace HumaneSociety
             }
         }
 
+        internal static int GetCategory(string passedInCategory)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            try
+            {
+                var animalBreedCategory = (from data in database.Catagories where data.catagory1 == passedInCategory select data.ID).First();
+                return animalBreedCategory;
+            }
+            catch
+            {
+                Catagory newCategory = new Catagory()
+                {
+                    catagory1 = passedInCategory
+                };
+                CreateCategoryHelper(newCategory);
+                var animalBreedCategory = (from data in database.Catagories where data.catagory1 == passedInCategory select data.ID).First();
+                return animalBreedCategory;
+            }
+        }
+
         internal static void CreateBreedHelper(Breed breedToAdd)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             database.Breeds.InsertOnSubmit(breedToAdd);
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        internal static void CreateCategoryHelper(Catagory categoryToAdd)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.Catagories.InsertOnSubmit(categoryToAdd);
             try
             {
                 database.SubmitChanges();
