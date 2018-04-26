@@ -47,6 +47,9 @@ namespace HumaneSociety
 
         public static int AddUsernameAndPassword(Employee employee)
         {
+            employee.userName = employee.firsttName + "." + employee.lastName;
+            UserInterface.DisplayUserOptions("Enter User's password");
+            employee.pass = UserInterface.GetUserInput();
             return 1;
         }
 
