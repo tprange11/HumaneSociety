@@ -128,7 +128,18 @@ namespace HumaneSociety
             return states;
         }
 
-        internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, string state)
+        public static USState GetStateById(int stateNumber)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            USState newState = new USState();
+            var stateObject = (from state in database.USStates where state.ID == stateNumber select state).First();
+            newState.ID = stateObject.ID;
+            newState.abbrev = stateObject.abbrev;
+            newState.name = stateObject.name;
+            return newState;
+        }
+
+        internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             Client client = new Client();
@@ -151,7 +162,7 @@ namespace HumaneSociety
             }
         }
 
-        public static int GetClientAddress(string streetAddress, int zipCode, object stateNumber)
+        public static int GetClientAddress(string streetAddress, int zipCode, int stateNumber)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             int addressNumber;
@@ -165,10 +176,10 @@ namespace HumaneSociety
                 UserAddress address = new UserAddress();
                 address.zipcode = zipCode;
                 address.addessLine1 = streetAddress;
-                address.USState = stateNumber;
+                address.USState = GetStateById(stateNumber);
                 database.UserAddresses.InsertOnSubmit(address);
                 database.SubmitChanges();
-                var addressKey = from location in database.UserAddresses where location.addessLine1 == streetAddress && location.zipcode == zipCode && location.usState == stateNumber select address.ID;
+                var addressKey = from location in database.UserAddresses where location.addessLine1 == streetAddress && location.zipcode == zipCode && location.USState == stateNumber select address.ID;
                 addressNumber = addressKey.ToList()[0];
             }
             return addressNumber;
