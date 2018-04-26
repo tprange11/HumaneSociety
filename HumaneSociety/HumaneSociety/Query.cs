@@ -176,8 +176,8 @@ namespace HumaneSociety
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             try
             {
-                //database.DietPlans.
-                return 1;
+                var animalDietPlan = (from data in database.DietPlans where data.ID == passedInDiet select data.ID).First();
+                return animalDietPlan;
             }
             catch (Exception)
             {
