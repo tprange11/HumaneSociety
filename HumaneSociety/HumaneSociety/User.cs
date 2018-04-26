@@ -11,10 +11,6 @@ namespace HumaneSociety
         protected string name;
         protected string userName;
 
-        public virtual void LogIn()
-        {
-
-        }
         protected bool CheckIfNewUser()
         {
             List<string> options = new List<string>() { "Are you a new User?", "yes", "no" };
@@ -34,6 +30,43 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions("Input not recognized please try again");
                 return CheckIfNewUser();
             }
+        }
+        protected Dictionary<int, string> GetAnimalCriteria()
+        {
+            Dictionary<int, string> searchParameters = new Dictionary<int, string>();
+            bool isSearching = true;
+            while (isSearching)
+            {
+                Console.Clear();
+                List<string> options = new List<string>() { "Select Search Criteia: (Enter number and choose finished when finished)", "1. Category", "2. Breed", "3. Name", "4. Age", "5. Demeanor", "6. Kid friendly", "7. Pet friendly", "8. Weight", "9. ID", "10. Finished" };
+                UserInterface.DisplayUserOptions(options);
+                string input = UserInterface.GetUserInput();
+                if (input.ToLower() == "10" || input.ToLower() == "finished")
+                {
+                    isSearching = false;
+                    continue;
+                }
+                else
+                {
+                    searchParameters = UserInterface.EnterSearchCriteria(searchParameters, input);
+                }
+            }
+            return searchParameters;
+        }
+        protected bool GetBoolParamater(string input)
+        {
+            if (input.ToLower() == "true")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public virtual void LogIn()
+        {
+
         }
         protected virtual void LogInPreExistingUser()
         {
@@ -88,39 +121,6 @@ namespace HumaneSociety
                 animals = (from data in animals where data.ID == int.Parse(searchParameters[9]) select data);
             }
             return animals;
-        }
-        protected bool GetBoolParamater(string input)
-        {
-            if (input.ToLower() == "true")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        protected Dictionary<int, string> GetAnimalCriteria()
-        {
-            Dictionary<int, string> searchParameters = new Dictionary<int, string>();
-            bool isSearching = true;
-            while (isSearching)
-            {
-                Console.Clear();
-                List<string> options = new List<string>() { "Select Search Criteia: (Enter number and choose finished when finished)", "1. Category", "2. Breed", "3. Name", "4. Age", "5. Demeanor", "6. Kid friendly", "7. Pet friendly", "8. Weight","9. ID", "10. Finished" };
-                UserInterface.DisplayUserOptions(options);
-                string input = UserInterface.GetUserInput();
-                if (input.ToLower() == "10" || input.ToLower() == "finished")
-                {
-                    isSearching = false;
-                    continue;
-                }
-                else
-                {
-                    searchParameters = UserInterface.EnterSearchCriteria(searchParameters, input);
-                }
-            }
-            return searchParameters;
         }
     }
 }
