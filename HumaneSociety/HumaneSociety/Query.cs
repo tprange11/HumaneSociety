@@ -146,7 +146,28 @@ namespace HumaneSociety
 
         internal static int? GetDiet()
         {
-            return 1;
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            string diet = UserInterface.GetStringData("diet", "the animal's");
+            int amount = UserInterface.GetIntegerData("amount", "the animal's");
+
+            try
+            {
+                var query = (from dietPlan in db.DietPlans
+                             where dietPlan.food == diet
+                             select dietPlan.ID).First();
+                return query;
+
+            }
+
+            catch
+            {
+                DietPlan newDP = new DietPlan
+                {
+                    food = diet,
+                    amount = amount
+                };
+                return newDP.ID;
+            }
         }
 
         internal static int? GetLocation()
