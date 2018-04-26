@@ -13,7 +13,7 @@ namespace HumaneSociety
             Console.Clear();
             string tempCategory = UserInterface.GetStringData("category", "the animal's");
             string tempBreed = UserInterface.GetStringData("breed", "the animal's");
-            string tempDiet = UserInterface.GetStringData("diet", "the animal's");
+            int tempDiet = UserInterface.GetIntegerData("diet", "the animal's");
             Animal animal = new Animal
             {
                 breed = Query.GetBreed(tempBreed, tempCategory),

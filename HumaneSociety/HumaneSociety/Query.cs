@@ -123,6 +123,20 @@ namespace HumaneSociety
             }
         }
 
+        internal static void CreateBreedHelper(Breed breedToAdd)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.Breeds.InsertOnSubmit(breedToAdd);
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Query.CreateBreedHelper: " + e);
+            }
+        }
+
         internal static int GetCategory(string passedInCategory)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
@@ -143,20 +157,6 @@ namespace HumaneSociety
             }
         }
 
-        internal static void CreateBreedHelper(Breed breedToAdd)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            database.Breeds.InsertOnSubmit(breedToAdd);
-            try
-            {
-                database.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Query.CreateBreedHelper: " + e);
-            }
-        }
-
         internal static void CreateCategoryHelper(Catagory categoryToAdd)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
@@ -169,6 +169,22 @@ namespace HumaneSociety
             {
                 throw new Exception("Query.CreateCategoryHelper: " + e);
             }
+        }
+
+        internal static int GetDiet(int passedInDiet)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            try
+            {
+                //database.DietPlans.
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 1;
+                throw;
+            }
+            
         }
 
         internal static Client GetClient(string userName, string password)
