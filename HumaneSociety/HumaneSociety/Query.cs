@@ -23,12 +23,14 @@ namespace HumaneSociety
         internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            Client client = new Client();
-            client.firstName = firstName;
-            client.lastName = lastName;
-            client.userName = username;
-            client.pass = password;
-            client.email = email;
+            Client client = new Client
+            {
+                firstName = firstName,
+                lastName = lastName,
+                userName = username,
+                pass = password,
+                email = email
+            };
             int address = GetClientAddress(streetAddress, zipCode, state);
             client.userAddress = address;
 
@@ -119,10 +121,12 @@ namespace HumaneSociety
             }
             else
             {
-                UserAddress address = new UserAddress();
-                address.zipcode = zipCode;
-                address.addessLine1 = streetAddress;
-                address.USState = GetStateById(stateNumber);
+                UserAddress address = new UserAddress
+                {
+                    zipcode = zipCode,
+                    addessLine1 = streetAddress,
+                    USState = GetStateById(stateNumber)
+                };
                 database.UserAddresses.InsertOnSubmit(address);
                 database.SubmitChanges();
                 var addressKey = from location in database.UserAddresses where location.addessLine1 == streetAddress && location.zipcode == zipCode && location.USState.ID == stateNumber select address.ID;
@@ -259,10 +263,6 @@ namespace HumaneSociety
         internal static int? UpdateShot(string shot, Animal animal)
         {
             throw new NotImplementedException();
-        }
-
-        public static void UpdateSql()
-        {
         }
 
         internal static void UpdateUsername(Client client)
