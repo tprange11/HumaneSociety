@@ -111,6 +111,7 @@ namespace HumaneSociety
             catch
             {
                 // Create new breed, insert in database, recursive call this method to get breed ID
+
                 return 1;
             }
         }
@@ -174,7 +175,14 @@ namespace HumaneSociety
 
         internal static int? GetLocation()
         {
-            return 1;
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            string location = UserInterface.GetStringData("location", "the animal's");
+
+            var query = (from place in database.Rooms
+                         where place.name == location
+                         select place.ID).First();
+
+            return query;
         }
 
         internal static IQueryable<ClientAnimalJunction> GetPendingAdoptions()
@@ -252,7 +260,7 @@ namespace HumaneSociety
                     }
                     break;
                 case "read":
-
+                    
                     break;
                 case "update":
 
