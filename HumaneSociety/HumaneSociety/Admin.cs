@@ -12,6 +12,26 @@ namespace HumaneSociety
 
 
 
+        private void AddEmployee()
+        {
+            Employee employee = new Employee();
+            employee.firsttName = UserInterface.GetStringData("first name", "the employee's");
+            employee.lastName = UserInterface.GetStringData("last name", "the employee's");
+            employee.employeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
+            employee.email = UserInterface.GetStringData("email", "the employee's"); ;
+            try
+            {
+                Query.RunEmployeeQueries(employee, "create");
+                UserInterface.DisplayUserOptions("Employee addition successful.");
+            }
+            catch
+            {
+                Console.Clear();
+                UserInterface.DisplayUserOptions("Employee addition unsuccessful please try again or type exit;");
+                return;
+            }
+        }
+
         public override void LogIn()
         {
             UserInterface.DisplayUserOptions("What is your password?");
@@ -23,6 +43,41 @@ namespace HumaneSociety
             else
             {
                 RunUserMenus();
+            }
+        }
+
+        private void ReadEmployee()
+        {
+            try
+            {
+                Employee employee = new Employee();
+                employee.employeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
+                Query.RunEmployeeQueries(employee, "read");
+            }
+            catch
+            {
+                Console.Clear();
+                UserInterface.DisplayUserOptions("Employee not found please try again or type exit;");
+                return;
+            }
+        }
+
+        private void RemoveEmployee()
+        {
+            Employee employee = new Employee();
+            employee.lastName = UserInterface.GetStringData("last name", "the employee's"); ;
+            employee.employeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
+            try
+            {
+                Console.Clear();
+                Query.RunEmployeeQueries(employee, "delete");
+                UserInterface.DisplayUserOptions("Employee successfully removed");
+            }
+            catch
+            {
+                Console.Clear();
+                UserInterface.DisplayUserOptions("Employee removal unsuccessful please try again or type exit");
+                RemoveEmployee();
             }
         }
 
@@ -82,61 +137,5 @@ namespace HumaneSociety
                 return;
             }
         }
-
-        private void ReadEmployee()
-        {
-            try
-            {
-                Employee employee = new Employee();
-                employee.employeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
-                Query.RunEmployeeQueries(employee, "read");
-            }
-            catch
-            {
-                Console.Clear();
-                UserInterface.DisplayUserOptions("Employee not found please try again or type exit;");
-                return;
-            }
-        }
-
-        private void RemoveEmployee()
-        {
-            Employee employee = new Employee();
-            employee.lastName = UserInterface.GetStringData("last name", "the employee's"); ;
-            employee.employeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
-            try
-            {
-                Console.Clear();
-                Query.RunEmployeeQueries(employee, "delete");
-                UserInterface.DisplayUserOptions("Employee successfully removed");
-            }
-            catch
-            {
-                Console.Clear();
-                UserInterface.DisplayUserOptions("Employee removal unsuccessful please try again or type exit");
-                RemoveEmployee();
-            }
-        }
-
-        private void AddEmployee()
-        {
-            Employee employee = new Employee();
-            employee.firsttName = UserInterface.GetStringData("first name", "the employee's");
-            employee.lastName = UserInterface.GetStringData("last name", "the employee's");
-            employee.employeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
-            employee.email = UserInterface.GetStringData("email", "the employee's"); ;
-            try
-            {
-                Query.RunEmployeeQueries(employee, "create");
-                UserInterface.DisplayUserOptions("Employee addition successful.");
-            }
-            catch
-            {
-                Console.Clear();
-                UserInterface.DisplayUserOptions("Employee addition unsuccessful please try again or type exit;");
-                return;
-            }
-        }
-
     }
 }
