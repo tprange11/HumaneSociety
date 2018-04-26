@@ -13,7 +13,8 @@ namespace HumaneSociety
             Console.Clear();
             string tempCategory = UserInterface.GetStringData("category", "the animal's");
             string tempBreed = UserInterface.GetStringData("breed", "the animal's");
-            int tempDiet = UserInterface.GetIntegerData("diet", "the animal's");
+            string tempDiet = UserInterface.GetStringData("diet", "the animal's");
+            int tempDietAmount = UserInterface.GetIntegerData("diet amount", "the animal's");
             Animal animal = new Animal
             {
                 breed = Query.GetBreed(tempBreed, tempCategory),
@@ -23,7 +24,7 @@ namespace HumaneSociety
                 kidFriendly = UserInterface.GetBitData("the animal", "child friendly"),
                 petFriendly = UserInterface.GetBitData("the animal", "pet friendly"),
                 weight = UserInterface.GetIntegerData("the animal", "the weight of the"),
-                diet = Query.GetDiet(tempDiet),
+                diet = Query.GetDiet(tempDiet, tempDietAmount),
                 //diet = UserInterface.GetIntegerData("diet", "the animal's"),
                 //animal.location = Query.GetLocation();
                 location = UserInterface.GetIntegerData("location", "the animal's")

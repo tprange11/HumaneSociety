@@ -173,18 +173,38 @@ namespace HumaneSociety
             }
         }
 
-        internal static int GetDiet(int passedInDiet)
+        internal static int GetDiet(string passedInDiet, int passedInAmount)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             try
             {
-                var animalDietPlan = (from data in database.DietPlans where data.ID == passedInDiet select data.ID).First();
+                var animalDietPlan = (from data in database.DietPlans where data.food == passedInDiet select data.ID).First();
                 return animalDietPlan;
             }
             catch (Exception)
             {
-                return 1;
-                throw;
+                DietPlan newDietPlan = new DietPlan
+                {
+                    food = passedInDiet,
+                    amount = passedInAmount
+                };
+                CreateDietPlanHelper(newDietPlan);
+                var animalDietPlan = (from data in database.DietPlans where data.food == passedInDiet select data.ID).First();
+                return animalDietPlan;
+            }
+        }
+
+        internal static void CreateDietPlanHelper(DietPlan dietPlanToAdd)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.DietPlans.InsertOnSubmit(dietPlanToAdd);
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Query.CreateCategoryHelper: " + e);
             }
         }
 
