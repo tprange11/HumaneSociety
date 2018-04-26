@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HumaneSociety
 {
-    class Admin : User
+    internal class Admin : User
     {
-
-
-
-
         private void AddEmployee()
         {
             Employee employee = new Employee();
@@ -89,19 +82,20 @@ namespace HumaneSociety
             string input = UserInterface.GetUserInput();
             RunInput(input);
         }
+
         protected void RunInput(string input)
         {
-            if(input == "1" || input.ToLower() == "create")
+            if (input == "1" || input.ToLower() == "create")
             {
                 AddEmployee();
                 RunUserMenus();
             }
-            else if(input == "2" || input.ToLower() == "delete")
+            else if (input == "2" || input.ToLower() == "delete")
             {
                 RemoveEmployee();
                 RunUserMenus();
             }
-            else if(input == "3" || input.ToLower() == "read")
+            else if (input == "3" || input.ToLower() == "read")
             {
                 ReadEmployee();
                 RunUserMenus();

@@ -51,6 +51,7 @@ namespace HumaneSociety
             }
             return false;
         }
+
         private void CheckIfAccountComplete()
         {
             if (client.homeSize == null || client.kids == null || client.income == null)
@@ -222,6 +223,7 @@ namespace HumaneSociety
             }
             return username;
         }
+
         public int GetZipCode()
         {
             UserInterface.DisplayUserOptions("Please enter 5 digit zip");
@@ -236,6 +238,7 @@ namespace HumaneSociety
                 return GetZipCode();
             }
         }
+
         public override void LogIn()
         {
             if (CheckIfNewUser())
@@ -270,6 +273,7 @@ namespace HumaneSociety
                 return;
             }
         }
+
         private void RunSearch()
         {
             Console.Clear();
@@ -483,6 +487,7 @@ namespace HumaneSociety
                 Query.UpdateLastName(client);
             }
         }
+
         private void UpdatePassword()
         {
             Console.Clear();

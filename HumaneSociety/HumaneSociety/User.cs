@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HumaneSociety
 {
-    class User
+    internal class User
     {
         protected string name;
         protected string userName;
@@ -16,11 +14,11 @@ namespace HumaneSociety
             List<string> options = new List<string>() { "Are you a new User?", "yes", "no" };
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
-            if(input.ToLower() == "yes" || input.ToLower() == "y")
+            if (input.ToLower() == "yes" || input.ToLower() == "y")
             {
                 return true;
             }
-            else if(input.ToLower() == "no" || input.ToLower() == "n")
+            else if (input.ToLower() == "no" || input.ToLower() == "n")
             {
                 return false;
             }
@@ -31,6 +29,7 @@ namespace HumaneSociety
                 return CheckIfNewUser();
             }
         }
+
         protected Dictionary<int, string> GetAnimalCriteria()
         {
             Dictionary<int, string> searchParameters = new Dictionary<int, string>();
@@ -53,6 +52,7 @@ namespace HumaneSociety
             }
             return searchParameters;
         }
+
         protected bool GetBoolParamater(string input)
         {
             if (input.ToLower() == "true")
@@ -64,18 +64,19 @@ namespace HumaneSociety
                 return false;
             }
         }
+
         public virtual void LogIn()
         {
-
         }
+
         protected virtual void LogInPreExistingUser()
         {
-
         }
+
         protected virtual void RunUserMenus()
         {
-
         }
+
         protected IQueryable<Animal> SearchForAnimal()
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();

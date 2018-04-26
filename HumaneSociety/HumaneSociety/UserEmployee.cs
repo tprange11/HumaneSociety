@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HumaneSociety
 {
-    class UserEmployee : User
+    internal class UserEmployee : User
     {
-        Employee employee;
+        private Employee employee;
 
         private void AddAnimal()
         {
@@ -62,7 +60,6 @@ namespace HumaneSociety
                 int input = UserInterface.GetIntegerData();
                 ApproveAdoption(adoptions[input - 1]);
             }
-
         }
 
         private void CheckAnimalStatus()
@@ -147,7 +144,6 @@ namespace HumaneSociety
                     Query.UpdateShot("booster", animal);
                 }
             }
-
         }
 
         public override void LogIn()
@@ -184,7 +180,6 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions("Employee not found, please try again, create a new user or contact your administrator");
                 LogIn();
             }
-
         }
 
         private void GetPassword()
@@ -211,7 +206,6 @@ namespace HumaneSociety
 
         private void RemoveAnimal()
         {
-
             var animals = SearchForAnimal().ToList();
             if (animals.Count > 1)
             {
@@ -238,7 +232,8 @@ namespace HumaneSociety
         {
             bool isFinished = false;
             Console.Clear();
-            while(!isFinished){
+            while (!isFinished)
+            {
                 List<string> options = new List<string>() { "Animal found:", animal.name, animal.Breed1.Catagory1.catagory1, animal.Breed1.breed1, animal.Breed1.pattern, "Would you like to:", "1. Get Info", "2. Update Info", "3. Check shots", "4. Return" };
                 UserInterface.DisplayUserOptions(options);
                 int input = UserInterface.GetIntegerData();
@@ -253,21 +248,23 @@ namespace HumaneSociety
 
         private void RunCheckMenuInput(int input, Animal animal)
         {
-            
             switch (input)
             {
                 case 1:
                     UserInterface.DisplayAnimalInfo(animal);
                     Console.Clear();
                     return;
+
                 case 2:
                     UpdateAnimal(animal);
                     Console.Clear();
                     return;
+
                 case 3:
                     CheckShots(animal);
                     Console.Clear();
                     return;
+
                 default:
                     UserInterface.DisplayUserOptions("Input not accepted please select a menu choice");
                     return;
@@ -282,18 +279,22 @@ namespace HumaneSociety
                     AddAnimal();
                     RunUserMenus();
                     return;
+
                 case "2":
                     RemoveAnimal();
                     RunUserMenus();
                     return;
+
                 case "3":
                     CheckAnimalStatus();
                     RunUserMenus();
                     return;
+
                 case "4":
                     CheckAdoptions();
                     RunUserMenus();
                     return;
+
                 default:
                     UserInterface.DisplayUserOptions("Input not accepted please try again");
                     RunUserMenus();
@@ -303,7 +304,7 @@ namespace HumaneSociety
 
         protected override void RunUserMenus()
         {
-            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" };
+            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status", "4. Approve Adoption" };
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
             RunUserInput(input);
@@ -312,7 +313,7 @@ namespace HumaneSociety
         private IQueryable<Animal> SearchForAnimal(int iD)
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
-             var animals = (from data in context.Animals where data.ID == iD select data);
+            var animals = (from data in context.Animals where data.ID == iD select data);
             return animals;
         }
 
@@ -338,6 +339,5 @@ namespace HumaneSociety
             GetPassword();
             Query.AddUsernameAndPassword(employee);
         }
-
     }
 }

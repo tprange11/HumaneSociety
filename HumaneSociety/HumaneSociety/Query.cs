@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HumaneSociety
 {
     public static class Query
     {
-        // Attempting to order methods/delegates in order of CRUD 
+        // Attempting to order methods/delegates in order of CRUD
         // The more simple the method the more likely it can be a delegate
 
         internal static void AddAnimal(Animal animal)
@@ -23,7 +21,6 @@ namespace HumaneSociety
             {
                 throw new Exception("Query.AddAnimal: " + e);
             }
-
         }
 
         internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int state)
@@ -77,12 +74,10 @@ namespace HumaneSociety
 
         public static void CreateSql()
         {
-
         }
 
         public static void DeleteSql()
         {
-
         }
 
         // Employee stuff kept seperate from animal stuff
@@ -95,10 +90,10 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             var employeeData = (from employee in database.Employees
-                            where employee.userName == userName
-                            where employee.pass == password
-                            select employee).First();
-            
+                                where employee.userName == userName
+                                where employee.pass == password
+                                select employee).First();
+
             return employeeData;
         }
 
@@ -195,6 +190,7 @@ namespace HumaneSociety
             var adoptions = from data in database.ClientAnimalJunctions where data.client == client.ID select data;
             return adoptions;
         }
+
         internal static int? RemoveAnimal(Animal animal)
         {
             return 1;
@@ -202,8 +198,8 @@ namespace HumaneSociety
 
         public static void ReplaceSql()
         {
-
         }
+
         internal static IQueryable<Client> RetrieveClients()
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
@@ -250,6 +246,7 @@ namespace HumaneSociety
         {
             throw new NotImplementedException();
         }
+
         internal static void UpdateLastName(Client client)
         {
             throw new NotImplementedException();
@@ -262,7 +259,6 @@ namespace HumaneSociety
 
         public static void UpdateSql()
         {
-
         }
 
         internal static void UpdateUsername(Client client)
