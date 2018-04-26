@@ -146,9 +146,9 @@ namespace HumaneSociety
             {
                 database.SubmitChanges();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new Exception("Query.CreateBreedHelper: " + e);
             }
         }
 
@@ -160,12 +160,11 @@ namespace HumaneSociety
             {
                 database.SubmitChanges();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new Exception("Query.CreateCategoryHelper: " + e);
             }
         }
-
 
         internal static Client GetClient(string userName, string password)
         {
