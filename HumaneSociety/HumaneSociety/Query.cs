@@ -45,12 +45,13 @@ namespace HumaneSociety
             }
         }
 
-        public static int AddUsernameAndPassword(Employee employee)
+        public static void AddUsernameAndPassword(Employee employee)
         {
-            employee.userName = employee.firsttName + "." + employee.lastName;
-            UserInterface.DisplayUserOptions("Enter User's password");
-            employee.pass = UserInterface.GetUserInput();
-            return 1;
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var updatedEmployee = database.Employees.Where(e => e.ID == employee.ID).Select(e => e).First();
+            updatedEmployee.userName = employee.userName;
+            updatedEmployee.pass = employee.pass;
+            database.SubmitChanges();
         }
 
         internal static void Adopt(object animal, Client client)
@@ -61,18 +62,19 @@ namespace HumaneSociety
         public static bool CheckEmployeeUserNameExist(string username)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            var employeeData = (from employee in database.Employees
-                                where employee.userName == username
-                                select employee).First();
-            if (employeeData != null)
+            try
+            {
+                var employeeData = (from employee in database.Employees
+                                    where employee.userName == username
+                                    select employee).First();
+                return true;
+            }
+            catch
             {
                 return false;
             }
-            else
-            {
-                return true;
-            }
         }
+
         public static int EmployeeLogin()
         {
             return 1;
@@ -184,7 +186,6 @@ namespace HumaneSociety
                 return 1;
                 throw;
             }
-            
         }
 
         internal static Client GetClient(string userName, string password)
@@ -229,9 +230,7 @@ namespace HumaneSociety
                              where dietPlan.food == diet
                              select dietPlan.ID).First();
                 return query;
-
             }
-
             catch
             {
                 DietPlan newDP = new DietPlan
@@ -297,6 +296,7 @@ namespace HumaneSociety
         {
             return 1;
         }
+
         internal static IQueryable<Client> RetrieveClients()
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
@@ -330,17 +330,19 @@ namespace HumaneSociety
                         throw new Exception("Query.RunEmployeeQueries: " + e);
                     }
                     break;
+
                 case "read":
-                    
+
                     break;
+
                 case "update":
 
                     break;
+
                 case "delete":
 
                     break;
             }
-
         }
 
         internal static void UpdateAddress(Client client)
