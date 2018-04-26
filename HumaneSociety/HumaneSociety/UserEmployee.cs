@@ -11,19 +11,20 @@ namespace HumaneSociety
         private void AddAnimal()
         {
             Console.Clear();
-            string tempBreed = UserInterface.GetStringData("breed", "the animal's");
             string tempCategory = UserInterface.GetStringData("category", "the animal's");
+            string tempBreed = UserInterface.GetStringData("breed", "the animal's");
+            string tempDiet = UserInterface.GetStringData("diet", "the animal's");
             Animal animal = new Animal
             {
-                breed = Query.GetBreed(tempBreed),
+                breed = Query.GetBreed(tempBreed, tempCategory),
                 name = UserInterface.GetStringData("name", "the animal's"),
                 age = UserInterface.GetIntegerData("age", "the animal's"),
                 demeanor = UserInterface.GetStringData("demeanor", "the animal's"),
                 kidFriendly = UserInterface.GetBitData("the animal", "child friendly"),
                 petFriendly = UserInterface.GetBitData("the animal", "pet friendly"),
                 weight = UserInterface.GetIntegerData("the animal", "the weight of the"),
-                //animal.diet = Query.GetDiet();
-                diet = UserInterface.GetIntegerData("diet", "the animal's"),
+                diet = Query.GetDiet(tempDiet);
+                //diet = UserInterface.GetIntegerData("diet", "the animal's"),
                 //animal.location = Query.GetLocation();
                 location = UserInterface.GetIntegerData("location", "the animal's")
             };

@@ -101,7 +101,7 @@ namespace HumaneSociety
             return animal;
         }
 
-        internal static int GetBreed(string passedInBreed)
+        internal static int GetBreed(string passedInBreed, string passedInCategory)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             try
@@ -111,9 +111,11 @@ namespace HumaneSociety
             }
             catch
             {
+                var getCategory = GetCategory(passedInCategory);
                 Breed newBreed = new Breed()
                 {
-                    breed1 = passedInBreed
+                    breed1 = passedInBreed,
+                    catagory = getCategory
                 };
                 CreateBreedHelper(newBreed);
                 var animalBreed = (from data in database.Breeds where data.breed1 == passedInBreed select data.ID).First();
