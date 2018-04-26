@@ -11,19 +11,21 @@ namespace HumaneSociety
         private void AddAnimal()
         {
             Console.Clear();
-            Animal animal = new Animal();
-            //animal.breed = Query.GetBreed();
-            animal.breed = UserInterface.GetIntegerData("breed", "the animal's");
-            animal.name = UserInterface.GetStringData("name", "the animal's");
-            animal.age = UserInterface.GetIntegerData("age", "the animal's");
-            animal.demeanor = UserInterface.GetStringData("demeanor", "the animal's");
-            animal.kidFriendly = UserInterface.GetBitData("the animal", "child friendly");
-            animal.petFriendly = UserInterface.GetBitData("the animal", "pet friendly");
-            animal.weight = UserInterface.GetIntegerData("the animal", "the weight of the");
-            //animal.diet = Query.GetDiet();
-            animal.diet = UserInterface.GetIntegerData("diet", "the animal's");
-            //animal.location = Query.GetLocation();
-            animal.location = UserInterface.GetIntegerData("location", "the animal's");
+            Animal animal = new Animal
+            {
+                //animal.breed = Query.GetBreed();
+                breed = UserInterface.GetIntegerData("breed", "the animal's"),
+                name = UserInterface.GetStringData("name", "the animal's"),
+                age = UserInterface.GetIntegerData("age", "the animal's"),
+                demeanor = UserInterface.GetStringData("demeanor", "the animal's"),
+                kidFriendly = UserInterface.GetBitData("the animal", "child friendly"),
+                petFriendly = UserInterface.GetBitData("the animal", "pet friendly"),
+                weight = UserInterface.GetIntegerData("the animal", "the weight of the"),
+                //animal.diet = Query.GetDiet();
+                diet = UserInterface.GetIntegerData("diet", "the animal's"),
+                //animal.location = Query.GetLocation();
+                location = UserInterface.GetIntegerData("location", "the animal's")
+            };
             Query.AddAnimal(animal);
         }
 
