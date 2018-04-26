@@ -6,9 +6,6 @@ namespace HumaneSociety
 {
     public static class Query
     {
-        // Attempting to order methods/delegates in order of CRUD
-        // The more simple the method the more likely it can be a delegate
-
         internal static void AddAnimal(Animal animal)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
@@ -71,16 +68,6 @@ namespace HumaneSociety
                 return true;
             }
         }
-
-        public static void CreateSql()
-        {
-        }
-
-        public static void DeleteSql()
-        {
-        }
-
-        // Employee stuff kept seperate from animal stuff
         public static int EmployeeLogin()
         {
             return 1;
@@ -217,11 +204,6 @@ namespace HumaneSociety
         {
             return 1;
         }
-
-        public static void ReplaceSql()
-        {
-        }
-
         internal static IQueryable<Client> RetrieveClients()
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
