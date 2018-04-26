@@ -98,11 +98,21 @@ namespace HumaneSociety
             return animal;
         }
 
-        internal static int? GetBreed()
+        internal static int? GetBreed(string breed)
         {
+            // TODO: Does breed already exist? If yes then return passed in breed without changeing it. 
+            // If no then return insert new breed in database
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            var animalBreed = (from data in database.Breeds select data.breed1).First();
-            return 1;
+            try
+            {
+                var animalBreed = (from data in database.Breeds where data.breed1 == breed select data.ID).First();
+                return animalBreed;
+            }
+            catch
+            {
+                // Create new breed, insert in database, recursive call this method to get breed ID
+                return 1;
+            }
         }
 
         internal static Client GetClient(string userName, string password)
