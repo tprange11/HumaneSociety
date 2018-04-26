@@ -137,6 +137,7 @@ namespace HumaneSociety
             client.userName = username;
             client.pass = password;
             client.email = email;
+            int address = GetClientAddress(streetAddress, zipCode, state);
             client.userAddress = streetAddress;
     
             database.Clients.InsertOnSubmit(client);
@@ -148,6 +149,29 @@ namespace HumaneSociety
             {
                 throw new Exception("Query.AddNewClient: " + e);
             }
+        }
+
+        public static int GetClientAddress(string streetAddress, int zipCode, object stateNumber)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            int addressNumber;
+            var addressObject = from address in database.UserAddresses where address.addessLine1 == streetAddress && address.zipcode == zipCode && address.USState == stateNumber select address.ID;
+            if (addressObject.ToList().Count > 0)
+            {
+                addressNumber = addressObject.ToList()[0];
+            }
+            else
+            {
+                UserAddress address = new UserAddress();
+                address.zipcode = zipCode;
+                address.addessLine1 = streetAddress;
+                address.USState = stateNumber;
+                database.UserAddresses.InsertOnSubmit(address);
+                database.SubmitChanges();
+                var addressKey = from location in database.UserAddresses where location.addessLine1 == streetAddress && location.zipcode == zipCode && location.usState == stateNumber select address.ID;
+                addressNumber = addressKey.ToList()[0];
+            }
+            return addressNumber;
         }
 
         internal static void UpdateClient(Client client)
