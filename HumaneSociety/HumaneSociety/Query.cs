@@ -225,9 +225,33 @@ namespace HumaneSociety
             return employeeData;
         }
 
-        internal static void RunEmployeeQueries(Employee employee, string v)
+        internal static void RunEmployeeQueries(Employee employee, string crud)
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            switch (crud)
+            {
+                case "create":
+                    database.Employees.InsertOnSubmit(employee);
+                    try
+                    {
+                        database.SubmitChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception("Query.RunEmployeeQueries: " + e);
+                    }
+                    break;
+                case "read":
+
+                    break;
+                case "update":
+
+                    break;
+                case "delete":
+
+                    break;
+            }
+
         }
 
         internal static void UpdateAddress(Client client)
