@@ -166,7 +166,7 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             int addressNumber;
-            var addressObject = from address in database.UserAddresses where address.addessLine1 == streetAddress && address.zipcode == zipCode && address.USState == stateNumber select address.ID;
+            var addressObject = from address in database.UserAddresses where address.addessLine1 == streetAddress && address.zipcode == zipCode && address.USState.ID == stateNumber select address.ID;
             if (addressObject.ToList().Count > 0)
             {
                 addressNumber = addressObject.ToList()[0];
@@ -179,7 +179,7 @@ namespace HumaneSociety
                 address.USState = GetStateById(stateNumber);
                 database.UserAddresses.InsertOnSubmit(address);
                 database.SubmitChanges();
-                var addressKey = from location in database.UserAddresses where location.addessLine1 == streetAddress && location.zipcode == zipCode && location.USState == stateNumber select address.ID;
+                var addressKey = from location in database.UserAddresses where location.addessLine1 == streetAddress && location.zipcode == zipCode && location.USState.ID == stateNumber select address.ID;
                 addressNumber = addressKey.ToList()[0];
             }
             return addressNumber;
