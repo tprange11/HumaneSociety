@@ -14,7 +14,8 @@ namespace HumaneSociety
             Animal animal = new Animal
             {
                 //animal.breed = Query.GetBreed();
-                breed = UserInterface.GetIntegerData("breed", "the animal's"),
+                
+                breed = Query.GetBreed(UserInterface.GetStringData("breed", "the animal's")),
                 name = UserInterface.GetStringData("name", "the animal's"),
                 age = UserInterface.GetIntegerData("age", "the animal's"),
                 demeanor = UserInterface.GetStringData("demeanor", "the animal's"),
