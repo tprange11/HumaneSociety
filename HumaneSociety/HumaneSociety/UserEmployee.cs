@@ -11,11 +11,10 @@ namespace HumaneSociety
         private void AddAnimal()
         {
             Console.Clear();
+            string tempBreed = UserInterface.GetStringData("breed", "the animal's");
             Animal animal = new Animal
             {
-                //animal.breed = Query.GetBreed();
-                
-                breed = Query.GetBreed(UserInterface.GetStringData("breed", "the animal's")),
+                breed = Query.GetBreed(tempBreed),
                 name = UserInterface.GetStringData("name", "the animal's"),
                 age = UserInterface.GetIntegerData("age", "the animal's"),
                 demeanor = UserInterface.GetStringData("demeanor", "the animal's"),

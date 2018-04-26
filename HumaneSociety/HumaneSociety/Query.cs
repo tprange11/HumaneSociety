@@ -98,25 +98,26 @@ namespace HumaneSociety
             return animal;
         }
 
-        internal static string GetBreed(string passedInBreed)
+        internal static int GetBreed(string passedInBreed)
         {
             // TODO: Does breed already exist? If yes then return passed in breed without changing it. 
             // If no then return insert new breed in database
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             try
             {
-                var animalBreed = (from data in database.Breeds where data.breed1 == passedInBreed select data.breed1).First();
+                var animalBreed = (from data in database.Breeds where data.breed1 == passedInBreed select data.ID).First();
                 return animalBreed;
             }
             catch
             {
-                // Create new breed, insert in database, recursive call this method to get breed ID
+                // Create new breed, insert in database, recursive call this method, or new helper method, to get breed ID
                 Breed newBreed = new Breed()
                 {
                     breed1 = passedInBreed
                 };
 
-                return "derp";
+                
+                return 1;
             }
         }
 
