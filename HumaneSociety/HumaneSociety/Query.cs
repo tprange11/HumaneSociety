@@ -91,15 +91,129 @@ namespace HumaneSociety
             return employeeData;
         }
 
-        internal static int? EnterUpdate(Animal animal, Dictionary<int, string> updates)
+        internal static void EnterUpdate(Animal animal, Dictionary<int, string> updates)
         {
-            return 1;
+            foreach (int entry in updates.Keys)
+            {
+                switch (entry)
+                {
+                    case 1:
+                        UpdateCategory(animal, updates[1]);
+                        break;
+                    case 2:
+                        UpdateBreed(animal, updates[2]);
+                        break;
+                    case 3:
+                        UpdateName(animal, updates[3]);
+                        break;
+                    case 4:
+                        UpdateAge(animal, updates[4]);
+                        break;
+                    case 5:
+                        UpdateDemeanor(animal, updates[5]);
+                        break;
+                    case 6:
+                        UpdateKidFriendly(animal, updates[6]);
+                        break;
+                    case 7:
+                        UpdatePetFriendly(animal, updates[7]);
+                        break;
+                    case 8:
+                        UpdateWeight(animal, updates[8]);
+                        break;
+                }
+            }
+        }
+
+        internal static void UpdateCategory(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Breed dbBreed = database.Breeds.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            var isValidCategory = int.TryParse(value, out int category);
+            if (isValidCategory)
+            {
+                dbBreed.catagory = category;
+                database.SubmitChanges();
+            }
+
+        }
+
+        internal static void UpdateBreed(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Breed dbBreed = database.Breeds.Where(x => x.ID == animal.ID).Select(x => x).First();
+            dbBreed.breed1 = value;
+            database.SubmitChanges();
+
+        }
+
+        internal static void UpdateName(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.name = value;
+            database.SubmitChanges();
+        }
+
+        internal static void UpdateAge(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.age = Int32.Parse(value);
+            database.SubmitChanges();
+        }
+
+        internal static void UpdateDemeanor(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.demeanor = value;
+            database.SubmitChanges();
+        }
+
+        internal static void UpdateKidFriendly(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.kidFriendly = UserInterface.GetBitData(value);
+            database.SubmitChanges();
+        }
+
+        internal static void UpdatePetFriendly(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.petFriendly = UserInterface.GetBitData(value);
+            database.SubmitChanges();
+        }
+
+        internal static void UpdateWeight(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.weight = Int32.Parse(value);
+            database.SubmitChanges();
         }
 
         internal static Animal GetAnimalByID(int id)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            var animal = (from data in database.Animals where data.ID == id select data).First();
+            var animal = database.Animals.Where(x => x.ID == id).Select(x => x).First();
             return animal;
         }
 
