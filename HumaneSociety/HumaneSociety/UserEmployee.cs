@@ -27,7 +27,7 @@ namespace HumaneSociety
                 petFriendly = UserInterface.GetBitData("the animal", "pet friendly"),
                 weight = UserInterface.GetIntegerData("the animal", "the weight of the"),
                 diet = Query.GetDiet(tempDiet, tempDietAmount),
-                location = Query.GetLocation(tempRoomLocation, tempBuildingLocation),
+                location = Query.GetLocation(tempRoomLocation, tempBuidingLocation),
             };
             Query.AddAnimal(animal);
         }

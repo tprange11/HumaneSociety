@@ -262,12 +262,12 @@ namespace HumaneSociety
             }
         }
 
-        internal static string GetLocation(string passedInRoom, string passInBuilding)
+        internal static int GetLocation(string passedInRoom, string passInBuilding)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             try
             {
-                var animalRoom = (from data in database.Rooms where data.name == passedInRoom select data.name).First();
+                var animalRoom = (from data in database.Rooms where data.name == passedInRoom select data.ID).First();
                 return animalRoom;
             }
             catch
@@ -278,7 +278,7 @@ namespace HumaneSociety
                     building = passInBuilding
                 };
                 CreateRoomHelper(newRoom);
-                var animalRoom = (from data in database.Rooms where data.name == passedInRoom select data.name).First();
+                var animalRoom = (from data in database.Rooms where data.name == passedInRoom select data.ID).First();
                 return animalRoom;
             }
         }
@@ -334,9 +334,10 @@ namespace HumaneSociety
             return adoptions;
         }
 
-        internal static int? RemoveAnimal(Animal animal)
+        internal static void RemoveAnimal(Animal animal)
         {
-            return 1;
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.Animals.DeleteOnSubmit(animal);
         }
 
         internal static IQueryable<Client> RetrieveClients()
