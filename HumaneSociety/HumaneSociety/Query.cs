@@ -446,22 +446,42 @@ namespace HumaneSociety
 
         internal static void UpdateClient(Client client)
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var clientData = database.Clients.Where(x => x.ID == client.ID).Select(x => x).First();
+            clientData.firstName = client.firstName;
+            clientData.lastName = client.lastName;
+            clientData.userName = client.userName;
+            clientData.pass = client.pass;
+            clientData.userAddress = client.userAddress;
+            clientData.email = client.email;
+            clientData.income = client.income;
+            clientData.kids = client.kids;
+            clientData.homeSize = client.homeSize;
+            database.SubmitChanges();
         }
 
         internal static void UpdateEmail(Client client)
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var clientData = database.Clients.Where(x => x.ID == client.ID).Select(x => x);
+            clientData.First().email = client.email;
+            database.SubmitChanges();
         }
 
         internal static void UpdateFirstName(Client client)
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var clientData = database.Clients.Where(x => x.ID == client.ID).Select(x => x);
+            clientData.First().firstName = client.firstName;
+            database.SubmitChanges();
         }
 
         internal static void UpdateLastName(Client client)
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var clientData = database.Clients.Where(x => x.ID == client.ID).Select(x => x);
+            clientData.First().lastName = client.lastName;
+            database.SubmitChanges();
         }
 
         internal static int? UpdateShot(string shot, Animal animal)
@@ -471,7 +491,10 @@ namespace HumaneSociety
 
         internal static void UpdateUsername(Client client)
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var clientData = database.Clients.Where(x => x.ID == client.ID).Select(x => x);
+            clientData.First().userName = client.userName;
+            database.SubmitChanges();
         }
     }
 }
