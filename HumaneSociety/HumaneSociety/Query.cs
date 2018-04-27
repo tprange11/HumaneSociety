@@ -377,7 +377,8 @@ namespace HumaneSociety
         internal static void RemoveAnimal(Animal animal)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            database.Animals.DeleteOnSubmit(animal);
+            var deleteAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+            database.Animals.DeleteOnSubmit(deleteAnimal);
             try
             {
                 database.SubmitChanges();
