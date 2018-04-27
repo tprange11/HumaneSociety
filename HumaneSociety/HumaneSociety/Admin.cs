@@ -74,7 +74,7 @@ namespace HumaneSociety
                 Query.RunEmployeeQueries(employee, "delete");
                 UserInterface.DisplayUserOptions("Employee successfully removed");
             }
-            catch
+            catch (Exception e)
             {
                 Console.Clear();
                 UserInterface.DisplayUserOptions("Employee removal unsuccessful please try again or type exit");
@@ -134,7 +134,7 @@ namespace HumaneSociety
                 Query.RunEmployeeQueries(employee, "update");
                 UserInterface.DisplayUserOptions("Employee update successful.");
             }
-            catch
+            catch (Exception e)
             {
                 Console.Clear();
                 UserInterface.DisplayUserOptions("Employee update unsuccessful please try again or type exit;");

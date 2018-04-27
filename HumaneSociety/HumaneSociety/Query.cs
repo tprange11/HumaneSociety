@@ -423,12 +423,12 @@ namespace HumaneSociety
                     break;
 
                 case "read":
-                    var readEmployee = database.Employees.Where(e => e.ID == employee.ID).Select(e => e).First();
+                    var readEmployee = database.Employees.Where(e => e.employeeNumber == employee.employeeNumber).Select(e => e).ToList();
                     break;
 
                 case "update":
 
-                    var tempEmployee = database.Employees.Where(e => e.ID == employee.ID).Select(e => e).First();
+                    var tempEmployee = database.Employees.Where(e => e.employeeNumber == employee.employeeNumber).Select(e => e).First();
                     tempEmployee.firsttName = employee.firsttName;
                     tempEmployee.lastName = employee.lastName;
                     tempEmployee.employeeNumber = employee.employeeNumber;
@@ -439,8 +439,9 @@ namespace HumaneSociety
                     break;
 
                 case "delete":
+                    var deleteEmployee = database.Employees.Where(e => e.employeeNumber == employee.employeeNumber && e.lastName == employee.lastName).Select(e => e).First();
 
-                    database.Employees.DeleteOnSubmit(employee);
+                    database.Employees.DeleteOnSubmit(deleteEmployee);
                     try
                     {
                         database.SubmitChanges();
