@@ -417,16 +417,29 @@ namespace HumaneSociety
         internal static void UpdateAddress(Client client)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            var clientData = database.Clients.Where(e => e.ID == client.ID).Select(e => e);
+            var clientData = database.Clients.Where(c => c.ID == client.ID).Select(c => c);
             clientData.First().UserAddress1.zipcode = client.UserAddress1.zipcode;
             clientData.First().UserAddress1.addessLine1 = client.UserAddress1.addessLine1;
             clientData.First().UserAddress1.USState = client.UserAddress1.USState;
             database.SubmitChanges();
         }
 
-        internal static int? UpdateAdoption(bool isAdopted, ClientAnimalJunction animal)
+        internal static void UpdateAdoption(bool isAdopted, ClientAnimalJunction animal)
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var currentJunction = database.ClientAnimalJunctions.Where(x => x.animal == animal.animal && x.client == animal.client).Select(x => x).First();
+            var currentAnimal = database.Animals.Where(x => x.ID == animal.animal).Select(x => x).First();
+            if (isAdopted)
+            {
+                currentJunction.approvalStatus = "approved";
+                currentAnimal.adoptionStatus = "adopted";
+                UserInterface.DisplayUserOptions("transferring adoption fee from adopter");
+            }
+            else
+            {
+                currentJunction.approvalStatus = "denied";
+            }
+            database.SubmitChanges();
         }
 
         internal static void UpdateClient(Client client)
