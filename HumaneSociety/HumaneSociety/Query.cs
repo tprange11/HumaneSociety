@@ -210,7 +210,9 @@ namespace HumaneSociety
 
         internal static Client GetClient(string userName, string password)
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var client = database.Clients.Where(x => x.userName == userName && x.pass == password).Select(x => x).ToList();
+            return (Client)client[0];
         }
 
         public static int GetClientAddress(string streetAddress, int zipCode, int stateNumber)
@@ -385,7 +387,7 @@ namespace HumaneSociety
                     break;
 
                 case "read":
-                    var tempEmployee = database.Employees.Where(e => e.ID == employee.ID).Select(e => e).First();
+                    var readEmployee = database.Employees.Where(e => e.ID == employee.ID).Select(e => e).First();
                     break;
 
                 case "update":
