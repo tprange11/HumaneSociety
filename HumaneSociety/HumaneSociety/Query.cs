@@ -383,13 +383,13 @@ namespace HumaneSociety
                     break;
 
                 case "read":
-                    var tempEmployee = database.Employees.Where(x => e.ID == employee.ID).Select(e => e).First();
+                    var tempEmployee = database.Employees.Where(e => e.ID == employee.ID).Select(e => e).First();
                     break;
 
                 case "update":
                     
 
-                    var tempEmployee = database.Employees.Where(x => e.ID == employee.ID).Select(e => e).First();
+                    var tempEmployee = database.Employees.Where(e => e.ID == employee.ID).Select(e => e).First();
                     tempEmployee.firsttName = employee.firsttName;
                     tempEmployee.lastName = employee.lastName;
                     tempEmployee.employeeNumber = employee.employeeNumber;
@@ -416,7 +416,12 @@ namespace HumaneSociety
 
         internal static void UpdateAddress(Client client)
         {
-            throw new NotImplementedException();
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            var clientData = database.Clients.Where(e => e.ID == client.ID).Select(e => e);
+            clientData.First().UserAddress1.zipcode = client.UserAddress1.zipcode;
+            clientData.First().UserAddress1.addessLine1 = client.UserAddress1.addessLine1;
+            clientData.First().UserAddress1.USState = client.UserAddress1.USState;
+            database.SubmitChanges();
         }
 
         internal static int? UpdateAdoption(bool isAdopted, ClientAnimalJunction animal)
