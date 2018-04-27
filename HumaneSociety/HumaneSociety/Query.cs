@@ -338,6 +338,14 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             database.Animals.DeleteOnSubmit(animal);
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Query.RemoveAnimal: " + e);
+            }
         }
 
         internal static IQueryable<Client> RetrieveClients()
@@ -370,20 +378,38 @@ namespace HumaneSociety
                     }
                     catch (Exception e)
                     {
-                        throw new Exception("Query.RunEmployeeQueries: " + e);
+                        throw new Exception("Query.RunEmployeeQueries(create): " + e);
                     }
                     break;
 
                 case "read":
-
+                    var tempEmployee = database.Employees.Where(x => e.ID == employee.ID).Select(e => e).First();
                     break;
 
                 case "update":
+                    
 
+                    var tempEmployee = database.Employees.Where(x => e.ID == employee.ID).Select(e => e).First();
+                    tempEmployee.firsttName = employee.firsttName;
+                    tempEmployee.lastName = employee.lastName;
+                    tempEmployee.employeeNumber = employee.employeeNumber;
+                    tempEmployee.email = employee.email;
+                    tempEmployee.userName = employee.userName;
+                    tempEmployee.pass = employee.pass;
+                    database.SubmitChanges();
                     break;
 
                 case "delete":
-
+                    
+                    database.Employees.DeleteOnSubmit(employee);
+                    try
+                    {
+                        database.SubmitChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception("Query.RunEmployeeQueries(delete): " + e);
+                    }
                     break;
             }
         }
