@@ -75,6 +75,62 @@ namespace HumaneSociety
             }
         }
 
+        internal static void CreateBreedHelper(Breed breedToAdd)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.Breeds.InsertOnSubmit(breedToAdd);
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Query.CreateBreedHelper: " + e);
+            }
+        }
+
+        internal static void CreateCategoryHelper(Catagory categoryToAdd)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.Catagories.InsertOnSubmit(categoryToAdd);
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Query.CreateCategoryHelper: " + e);
+            }
+        }
+
+        internal static void CreateDietPlanHelper(DietPlan dietPlanToAdd)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.DietPlans.InsertOnSubmit(dietPlanToAdd);
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Query.CreateCategoryHelper: " + e);
+            }
+        }
+
+        internal static void CreateRoomHelper(Room roomToAdd)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            database.Rooms.InsertOnSubmit(roomToAdd);
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Query.CreateRoomHelper: " + e);
+            }
+        }
+
         public static int EmployeeLogin()
         {
             return 1;
@@ -100,114 +156,36 @@ namespace HumaneSociety
                     case 1:
                         UpdateCategory(animal, updates[1]);
                         break;
+
                     case 2:
                         UpdateBreed(animal, updates[2]);
                         break;
+
                     case 3:
                         UpdateName(animal, updates[3]);
                         break;
+
                     case 4:
                         UpdateAge(animal, updates[4]);
                         break;
+
                     case 5:
                         UpdateDemeanor(animal, updates[5]);
                         break;
+
                     case 6:
                         UpdateKidFriendly(animal, updates[6]);
                         break;
+
                     case 7:
                         UpdatePetFriendly(animal, updates[7]);
                         break;
+
                     case 8:
                         UpdateWeight(animal, updates[8]);
                         break;
                 }
             }
-        }
-
-        internal static void UpdateCategory(Animal animal, string value)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            Breed dbBreed = database.Breeds.Where(x => x.ID == animal.ID).Select(x => x).First();
-
-            var isValidCategory = int.TryParse(value, out int category);
-            if (isValidCategory)
-            {
-                dbBreed.catagory = category;
-                database.SubmitChanges();
-            }
-
-        }
-
-        internal static void UpdateBreed(Animal animal, string value)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            Breed dbBreed = database.Breeds.Where(x => x.ID == animal.ID).Select(x => x).First();
-            dbBreed.breed1 = value;
-            database.SubmitChanges();
-
-        }
-
-        internal static void UpdateName(Animal animal, string value)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
-
-            dbAnimal.name = value;
-            database.SubmitChanges();
-        }
-
-        internal static void UpdateAge(Animal animal, string value)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
-
-            dbAnimal.age = Int32.Parse(value);
-            database.SubmitChanges();
-        }
-
-        internal static void UpdateDemeanor(Animal animal, string value)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
-
-            dbAnimal.demeanor = value;
-            database.SubmitChanges();
-        }
-
-        internal static void UpdateKidFriendly(Animal animal, string value)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
-
-            dbAnimal.kidFriendly = UserInterface.GetBitData(value);
-            database.SubmitChanges();
-        }
-
-        internal static void UpdatePetFriendly(Animal animal, string value)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
-
-            dbAnimal.petFriendly = UserInterface.GetBitData(value);
-            database.SubmitChanges();
-        }
-
-        internal static void UpdateWeight(Animal animal, string value)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-
-            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
-
-            dbAnimal.weight = Int32.Parse(value);
-            database.SubmitChanges();
         }
 
         internal static Animal GetAnimalByID(int id)
@@ -239,20 +217,6 @@ namespace HumaneSociety
             }
         }
 
-        internal static void CreateBreedHelper(Breed breedToAdd)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            database.Breeds.InsertOnSubmit(breedToAdd);
-            try
-            {
-                database.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Query.CreateBreedHelper: " + e);
-            }
-        }
-
         internal static int GetCategory(string passedInCategory)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
@@ -270,55 +234,6 @@ namespace HumaneSociety
                 CreateCategoryHelper(newCategory);
                 var animalBreedCategory = (from data in database.Catagories where data.catagory1 == passedInCategory select data.ID).First();
                 return animalBreedCategory;
-            }
-        }
-
-        internal static void CreateCategoryHelper(Catagory categoryToAdd)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            database.Catagories.InsertOnSubmit(categoryToAdd);
-            try
-            {
-                database.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Query.CreateCategoryHelper: " + e);
-            }
-        }
-
-        internal static int GetDiet(string passedInDiet, int passedInAmount)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            try
-            {
-                var animalDietPlan = (from data in database.DietPlans where data.food == passedInDiet select data.ID).First();
-                return animalDietPlan;
-            }
-            catch (Exception)
-            {
-                DietPlan newDietPlan = new DietPlan
-                {
-                    food = passedInDiet,
-                    amount = passedInAmount
-                };
-                CreateDietPlanHelper(newDietPlan);
-                var animalDietPlan = (from data in database.DietPlans where data.food == passedInDiet select data.ID).First();
-                return animalDietPlan;
-            }
-        }
-
-        internal static void CreateDietPlanHelper(DietPlan dietPlanToAdd)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            database.DietPlans.InsertOnSubmit(dietPlanToAdd);
-            try
-            {
-                database.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Query.CreateCategoryHelper: " + e);
             }
         }
 
@@ -378,6 +293,27 @@ namespace HumaneSociety
             }
         }
 
+        internal static int GetDiet(string passedInDiet, int passedInAmount)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+            try
+            {
+                var animalDietPlan = (from data in database.DietPlans where data.food == passedInDiet select data.ID).First();
+                return animalDietPlan;
+            }
+            catch (Exception)
+            {
+                DietPlan newDietPlan = new DietPlan
+                {
+                    food = passedInDiet,
+                    amount = passedInAmount
+                };
+                CreateDietPlanHelper(newDietPlan);
+                var animalDietPlan = (from data in database.DietPlans where data.food == passedInDiet select data.ID).First();
+                return animalDietPlan;
+            }
+        }
+
         internal static int GetLocation(string passedInRoom, string passInBuilding)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
@@ -396,20 +332,6 @@ namespace HumaneSociety
                 CreateRoomHelper(newRoom);
                 var animalRoom = (from data in database.Rooms where data.name == passedInRoom select data.ID).First();
                 return animalRoom;
-            }
-        }
-
-        internal static void CreateRoomHelper(Room roomToAdd)
-        {
-            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
-            database.Rooms.InsertOnSubmit(roomToAdd);
-            try
-            {
-                database.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Query.CreateRoomHelper: " + e);
             }
         }
 
@@ -505,7 +427,6 @@ namespace HumaneSociety
                     break;
 
                 case "update":
-                    
 
                     var tempEmployee = database.Employees.Where(e => e.ID == employee.ID).Select(e => e).First();
                     tempEmployee.firsttName = employee.firsttName;
@@ -518,7 +439,7 @@ namespace HumaneSociety
                     break;
 
                 case "delete":
-                    
+
                     database.Employees.DeleteOnSubmit(employee);
                     try
                     {
@@ -560,6 +481,39 @@ namespace HumaneSociety
             database.SubmitChanges();
         }
 
+        internal static void UpdateAge(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.age = Int32.Parse(value);
+            database.SubmitChanges();
+        }
+
+        internal static void UpdateBreed(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Breed dbBreed = database.Breeds.Where(x => x.ID == animal.ID).Select(x => x).First();
+            dbBreed.breed1 = value;
+            database.SubmitChanges();
+        }
+
+        internal static void UpdateCategory(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Breed dbBreed = database.Breeds.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            var isValidCategory = int.TryParse(value, out int category);
+            if (isValidCategory)
+            {
+                dbBreed.catagory = category;
+                database.SubmitChanges();
+            }
+        }
+
         internal static void UpdateClient(Client client)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
@@ -573,6 +527,16 @@ namespace HumaneSociety
             clientData.income = client.income;
             clientData.kids = client.kids;
             clientData.homeSize = client.homeSize;
+            database.SubmitChanges();
+        }
+
+        internal static void UpdateDemeanor(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.demeanor = value;
             database.SubmitChanges();
         }
 
@@ -592,11 +556,41 @@ namespace HumaneSociety
             database.SubmitChanges();
         }
 
+        internal static void UpdateKidFriendly(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.kidFriendly = UserInterface.GetBitData(value);
+            database.SubmitChanges();
+        }
+
         internal static void UpdateLastName(Client client)
         {
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             var clientData = database.Clients.Where(x => x.ID == client.ID).Select(x => x);
             clientData.First().lastName = client.lastName;
+            database.SubmitChanges();
+        }
+
+        internal static void UpdateName(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.name = value;
+            database.SubmitChanges();
+        }
+
+        internal static void UpdatePetFriendly(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.petFriendly = UserInterface.GetBitData(value);
             database.SubmitChanges();
         }
 
@@ -610,6 +604,16 @@ namespace HumaneSociety
             HumaneSocietyDataContext database = new HumaneSocietyDataContext();
             var clientData = database.Clients.Where(x => x.ID == client.ID).Select(x => x);
             clientData.First().userName = client.userName;
+            database.SubmitChanges();
+        }
+
+        internal static void UpdateWeight(Animal animal, string value)
+        {
+            HumaneSocietyDataContext database = new HumaneSocietyDataContext();
+
+            Animal dbAnimal = database.Animals.Where(x => x.ID == animal.ID).Select(x => x).First();
+
+            dbAnimal.weight = Int32.Parse(value);
             database.SubmitChanges();
         }
     }
